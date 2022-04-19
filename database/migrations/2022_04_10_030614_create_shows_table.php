@@ -19,9 +19,11 @@ return new class extends Migration
             $table->unsignedBigInteger('theater_id');
             $table->unsignedBigInteger('salon_id');
             $table->unsignedBigInteger('admin_id');
+            
 
             $table->datetime('show_date');
             $table->boolean('public')->default(false);
+            $table->boolean('is_cancelled')->default(false);
             $table->timestamps();
 
             $table->foreign('theater_id')->references('id')->on('theaters');

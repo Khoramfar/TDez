@@ -15,13 +15,11 @@ return new class extends Migration
     {
         Schema::create('prices', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('salon_id');
             $table->unsignedBigInteger('theater_id');
             $table->unsignedBigInteger('class_id'); 
             $table->unsignedBigInteger('cost');
             $table->timestamps();
 
-            $table->foreign('salon_id')->references('id')->on('salons');
             $table->foreign('theater_id')->references('id')->on('theaters');
             $table->foreign('class_id')->references('id')->on('classes');
             

@@ -18,4 +18,3 @@ class Theater extends Model
 		return $this->hasMany('App\Models\Price');
 	}
 }
-}

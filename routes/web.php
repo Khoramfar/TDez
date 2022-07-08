@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TheaterController;
+use App\Http\Controllers\SalonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +23,15 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-
+// Theater
+Route::get('/theaters',[TheaterController::class, 'index'])->name('theaterIndex');
+Route::get('/books/show/{theater}',[TheaterController::class, 'show'])->name('ShowTheater');
+Route::post('/theaters/add',[TheaterController::class, 'store'])->name('AddTheater');
+Route::get('/theaters/edit/{theater}',[TheaterController::class, 'edit'])->name('EditTheater');
+Route::post('/theaters/update/{theater}',[TheaterController::class, 'update'])->name('UpdateTheater');
+// Salon
+Route::get('/salons',[SalonController::class, 'index'])->name('salonIndex');
+Route::get('/salons/show/{salon}',[SalonController::class, 'show'])->name('ShowSalon');
+Route::post('/salons/add',[SalonController::class, 'store'])->name('AddSalon');
+Route::get('/salons/edit/{salon}',[SalonController::class, 'edit'])->name('EditSalon');
+Route::post('/salons/update/{salon}',[SalonController::class, 'update'])->name('UpdateSalon');

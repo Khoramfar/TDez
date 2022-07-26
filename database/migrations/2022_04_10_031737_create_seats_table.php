@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('seats', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('salon_id');
             $table->unsignedBigInteger('class_id');
+            $table->unsignedBigInteger('row');
             $table->string('name');
             $table->timestamps();
             
-            $table->foreign('salon_id')->references('id')->on('salons');
             $table->foreign('class_id')->references('id')->on('classes');
 
         });

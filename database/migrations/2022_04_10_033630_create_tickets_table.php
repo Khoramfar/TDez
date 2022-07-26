@@ -16,15 +16,16 @@ return new class extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->unsignedBigInteger('row');
+            $table->unsignedBigInteger('cost');
             $table->string('status');
             $table->unsignedBigInteger('booking_id')->nullable();
             $table->unsignedBigInteger('show_id');
-            $table->unsignedBigInteger('seat_id');
             $table->timestamps();
 
             $table->foreign('booking_id')->references('id')->on('bookings');
             $table->foreign('show_id')->references('id')->on('shows');
-            $table->foreign('seat_id')->references('id')->on('seats');
+
         });
     }
 

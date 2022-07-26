@@ -16,7 +16,10 @@ a.disabled {
 		@foreach($Slns as $S)
 		<tr>
 			<td><a href="{{route('ShowSalon',[$S])}}" class="underline">  {{$S->name}}  </a></td>
-		</tr>
+            @foreach($S->Classes as $C)
+                <td><a href="{{route('ShowClass',[$C])}}" class="underline">  {{$C->name}}  </a></td>
+            @endforeach
+        </tr>
 		@endforeach
 		</table>
 	</div>
@@ -59,7 +62,7 @@ a.disabled {
                 </ul>
             </div>
         @endif
-        <form action="{{route('AddSalon')}}" method="post" enctype="multipart/form-data" >
+        <form action="{{route('AddClassToSalon')}}" method="post" enctype="multipart/form-data" >
             @csrf
             <div class="container-fluid ">
                 <div class="row">
@@ -67,8 +70,15 @@ a.disabled {
                     <div class="col-lg-4 col-md-4  mt-3"> <input  class="form-control" type="text" name="name" placeholder="Enter Class name" required></div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-2 col-md-2 mt-3 "> Salon: </div>
-                    <div class="col-lg-4 col-md-4  mt-3"> <input  class="form-control" type="text" name="salon_id" placeholder="Enter Address" required></div>
+                    <div class="col-lg-2 col-md-2 mt-3 ">      Add Salon: </div>
+                    <div class="col-lg-4 col-md-4  mt-3">
+                    <select class="form-control" name="salon" id="salon">
+                              <option value="" disabled selected>Select Salon</option>
+                        @foreach($Slns as $Sln)
+                            <option value={{$Sln->id}}>{{$Sln->name}} </option>
+                        @endforeach
+                    </select>
+                    </div>
                 </div>
 
                 <div class="col-lg-2 col-md-2"> <button type="submit" class="btn btn-success"> Add </button></div>

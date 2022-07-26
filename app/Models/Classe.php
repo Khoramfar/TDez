@@ -16,10 +16,10 @@ class Classe extends Model
 	}
     public function Seats()
 	{
-		return $this->hasMany('App\Models\Seat');
+		return $this->hasMany('App\Models\Seat', 'class_id');
 	}
     public function Prices()
 	{
-		return $this->hasMany('App\Models\Price');
+		return $this->hasMany('App\Models\Price', 'class_id');
 	}
 }

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classe;
+use App\Models\Salon;
+use App\Models\Seat;
 use Illuminate\Http\Request;
 
-class ClasseController extends Controller
+class SeatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,16 +37,23 @@ class ClasseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $name = $request->name;
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $seat = Seat::Create(["class_id" =>$request->classid,"name" =>$request->name , "row" =>$request->row]);
+        $class = Classe::find($request->classid);
+        $class->Seats()->save($seat);
+        return back()->withInput();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Classe  $classe
+     * @param  \App\Models\Seat  $seat
      * @return \Illuminate\Http\Response
      */
-    public function show(Classe $classe)
+    public function show(Seat $seat)
     {
         //
     }
@@ -52,10 +61,10 @@ class ClasseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Classe  $classe
+     * @param  \App\Models\Seat  $seat
      * @return \Illuminate\Http\Response
      */
-    public function edit(Classe $classe)
+    public function edit(Seat $seat)
     {
         //
     }
@@ -64,10 +73,10 @@ class ClasseController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Classe  $classe
+     * @param  \App\Models\Seat  $seat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Classe $classe)
+    public function update(Request $request, Seat $seat)
     {
         //
     }
@@ -75,10 +84,10 @@ class ClasseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Classe  $classe
+     * @param  \App\Models\Seat  $seat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Classe $classe)
+    public function destroy(Seat $seat)
     {
         //
     }

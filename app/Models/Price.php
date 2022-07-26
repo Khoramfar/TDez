@@ -16,7 +16,7 @@ class Price extends Model
 	}
     public function Classe()
 	{
-		return $this->belongsTo('App\Models\Classe');
+		return $this->belongsTo('App\Models\Classe','class_id');
 	}
 
 

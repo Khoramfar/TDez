@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Salon;
 use App\Models\Show;
 use App\Models\Theater;
+use App\Models\Classe;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -106,5 +108,10 @@ class SalonController extends Controller
     public function destroy(Salon $salon)
     {
         //
+    }
+
+    public function addclass(Request $request)
+    {
+
     }
 }

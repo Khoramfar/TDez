@@ -8,17 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Seat extends Model
 {
     use HasFactory;
-    protected $fillable = ['salon_id','class_id','name'];
+    protected $fillable = ['salon_id','class_id','name','row'];
     public function Classe()
 	{
-		return $this->belongsTo('App\Models\Classe');
+		return $this->belongsTo('App\Models\Classe','class_id');
 	}
-    public function Salon()
-	{
-		return $this->belongsTo('App\Models\Salon');
-	}
-    public function Tickets()
-	{
-		return $this->hasMany('App\Models\Ticket');
-	}
+
+
 }

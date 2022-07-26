@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Theater;
 use App\Models\Show;
+use App\Models\Salon;
+use App\Models\User;
+use App\Models\Classe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -47,7 +50,7 @@ class TheaterController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'cover' => 'required|mimes:jpg,bmp,png|max:2048'
+            'cover' => 'required|string'
         ]);
 
 
@@ -63,7 +66,6 @@ class TheaterController extends Controller
             $newcoverfilename
         );
 
-
         Theater::Create(["title" =>$request->title ,"description"=>$request->description, 'cover_file_name'=> $newcoverfilename, 'original_cover_file_name'=>$coverfilename]);
         return redirect()->action([TheaterController::class, 'index']);
     }
@@ -77,8 +79,11 @@ class TheaterController extends Controller
     public function show(Theater $theater)
     {
         $theater->load('shows');
+        $Cls = Classe::all();
+        $Slns = Salon::all();
+        $usrs = User::all();
         $url = Storage::url('public/files/'.$theater->cover_file_name);
-        return view('theater.show',['theater' => $theater,'cover_url'=>$url ]);
+        return view('theater.show',['theater' => $theater,'cover_url'=>$url, 'Clss' => $Cls, 'Slns'=> $Slns, 'usrs'=> $usrs]);
     }
 
     /**

@@ -24,8 +24,8 @@
                         <a href="{{route('salonIndex')}}" class="underline">  Salons  </a><br>
 
                         @endif
-                        <a href="#" class="underline">  Shows  </a><br>
-                        <a href="#" class="underline">  MyTickets  </a><br>
+                        <a href="{{route('ShowIndex')}}" class="underline">  Shows  </a><br>
+                        <a href="{{route('BookingIndex')}}" class="underline">  MyTickets  </a><br>
 
                 </div>
             </div>

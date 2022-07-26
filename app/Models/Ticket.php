@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','status','booking_id','show_id','seat_id'];
+    protected $fillable = ['name','status','booking_id','show_id','row','cost'];
 
     public function Booking()
 	{
@@ -20,9 +20,5 @@ class Ticket extends Model
 		return $this->belongsTo('App\Models\Show');
 	}
 
-    public function Seat()
-	{
-		return $this->belongsTo('App\Models\Seat');
-	}
 
 }

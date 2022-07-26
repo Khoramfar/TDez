@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     use HasFactory;
-    protected $fillable = ['customer_id','payment_status','guest','price_amount','booking_date'];
+    protected $fillable = ['customer_id','payment_status','description','booking_date'];
     public function Customer()
 	{
 		return $this->belongsTo('App\Models\User');

@@ -70,3 +70,22 @@ a {
     text-align: justify;
     font-size: .9em;
 }
+.boximg {
+    border-radius: 100%;
+    border: 2px dashed #d9d9d9;
+    display: inline-grid;
+    padding: 12px;
+    align-items: center;
+    transition: 0.3s;
+}
+.boxtext {
+    font-weight: 200;
+    text-align: justify;
+    font-size: .9em;
+}
+.boxheading {
+    font-size: 1.3em;
+}
+.theaterbox {
+    background-color: #3C4A59;
+}

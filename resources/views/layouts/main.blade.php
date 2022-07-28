@@ -10,12 +10,14 @@
       <link href="/css/all.css" rel="stylesheet">
       <link rel="icon" href="/img/ico/favicon.ico" />
 	  <script src="/js/bootstrap.min.js"></script>
+      <script src="/js/jquery.min.js"></script>
 	</head>
 
 	<body>
 		@include('/layouts/header')
+        @yield('insidetop')
 		<div class="container-fluid"><br>
-			@yield('inside')
+			@yield('insidecont')
 		</div>
         @include('/layouts/footer')
 	</body>

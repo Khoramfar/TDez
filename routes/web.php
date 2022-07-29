@@ -22,7 +22,24 @@ use App\Http\Controllers\TicketController;
 require __DIR__.'/auth.php';
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+// Mainpages
+Route::get('/faq', function () {
+    return view('faq');
+})->name('faq'); // Soalate motedavel
+
+Route::get('/rules', function () {
+    return view('rules');
+})->name('rules'); // Ghavanin
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about'); // darbare ma
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact'); // tamas ba ma
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

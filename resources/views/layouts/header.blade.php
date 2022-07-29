@@ -3,7 +3,7 @@
 </div>
 <nav class="navbar pt-2 p-2 navbar-expand-sm bg-light navbar-dark sticky-top border-bottom">
     <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{ route('home') }}">
             <img src="/img/logo.png" alt="Avatar Logo" style="width:70px;" >
             <span class="logoname">تیکدز</span>
         </a>
@@ -20,7 +20,7 @@
                         </form>
 
                     @else
-                        <a href="{{ route('login') }}" ><button type="button" class="btn btn-danger" >ورود</button></a>
+                        <a href="{{ route('login') }}" ><button type="button" class="btn btn-danger" > ورود </button></a>
 
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}" ><button type="button" class="btn btn-success ms-2">ثبت نام</button></a>
@@ -44,19 +44,19 @@
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">خانه</a>
+                    <a class="nav-link" href="{{ route('home') }}">  <span class="fas fa-home"></span> خانه </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">سوالات متداول</a>
+                    <a class="nav-link" href="{{ route('faq') }}">سوالات متداول</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">قوانین و مقررات</a>
+                    <a class="nav-link" href="{{ route('rules') }}">قوانین و مقررات</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">درباره ما</a>
+                    <a class="nav-link" href="{{ route('about') }}">درباره ما</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">تماس با ما</a>
+                    <a class="nav-link" href="{{ route('contact') }}">تماس با ما</a>
                 </li>
             </ul>
         </div>

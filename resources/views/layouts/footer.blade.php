@@ -1,7 +1,7 @@
     <footer class="text-center text-lg-start text-dark" style="background-color: #ECEFF1">
         <section class="d-flex flex-column p-4 text-white" style="background-color: #606cec">
-            <div class="mx-auto p-5"><h3 class="fs-1"> سوالی براتون پیش اومده؟ </h3></div>
-            <div class="mx-auto" > <a href="#"><button type="button" class="btn btn-outline-dark btn-lg" style="color: #ffffff">ارتباط با ما</button> </a> </div>
+            <div class="mx-auto p-5"><h3 class="fs-1"><span class="fas fa-question-circle"></span> سوالی براتون پیش اومده؟ </h3></div>
+            <div class="mx-auto" > <a href="{{ route('contact') }}"><button type="button" class="btn btn-outline-dark btn-lg" style="color: #ffffff"><span class="fas fa-mail-bulk"></span> ارتباط با ما </button> </a> </div>
         </section>
 
         <section class="">
@@ -29,16 +29,16 @@
                         <h6 class="text-uppercase fw-bold fs-5">منوی وب سایت</h6>
                         <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px"/>
                         <p>
-                            <a href="#!" class="text-dark">سوالات متداول</a>
+                            <a href="{{ route('faq') }}" class="text-dark">سوالات متداول</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-dark">قوانین و مقررات</a>
+                            <a href="{{ route('rules') }}" class="text-dark">قوانین و مقررات</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-dark">درباره ما</a>
+                            <a href="{{ route('about') }}" class="text-dark">درباره ما</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-dark">تماس با ما</a>
+                            <a href="{{ route('contact') }}" class="text-dark">تماس با ما</a>
                         </p>
                     </div>
 

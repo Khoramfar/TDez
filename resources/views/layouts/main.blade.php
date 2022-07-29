@@ -16,7 +16,7 @@
 	<body>
 		@include('/layouts/header')
         @yield('insidetop')
-		<div class="container-fluid"><br>
+		<div class="container-fluid">
 			@yield('insidecont')
 		</div>
         @include('/layouts/footer')

@@ -36,36 +36,36 @@
 
 @section('insidecont')
     <div class="bg-1">
-        <div class="container">
-            <h2 class="text-center">رویدادهای جدید</h2>
-            <p class="text-center">برای انتخاب تاریخ رزرو و خرید بلیط بر روی تئاتر مورد نظر کلیک کنید.</p>
+        <div class="container mt-3">
+            <h2 class="text-center alert  btn-dark">  <strong>رویدادهای جدید</strong></h2>
+            <p class="text-center alert alert-info">برای انتخاب تاریخ رزرو و خرید بلیط بر روی تئاتر مورد نظر کلیک کنید.</p>
             <div class="row text-center mb-5">
                 <div class="col-sm-6 col-lg-3 ">
                     <div class="thumbnail theaterbox m-2 rounded">
                         <img src="img/ghaperit.jpg"  width="100%" height="200">
-                        <p class="alert alert-warning"><strong>نمایش طنز قپ ریت</strong></p>
-                        <button class="btn btn-danger mb-3">خرید بلیط</button>
+                        <p class="alert  btn-dark"><strong>نمایش طنز قپ ریت</strong></p>
+                        <button class="btn btn-danger mb-3"><span class="fas fa-shopping-cart"></span> خرید بلیط </button>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-3">
                     <div class="thumbnail theaterbox m-2 rounded">
                         <img src="img/ghaperit.jpg"  width="100%" height="200">
-                        <p class="alert alert-warning"><strong>نمایش طنز قپ ریت</strong></p>
-                        <button class="btn btn-danger mb-3">خرید بلیط</button>
+                        <p class="alert  btn-dark"><strong>نمایش طنز قپ ریت</strong></p>
+                        <button class="btn btn-danger mb-3"><span class="fas fa-shopping-cart"></span> خرید بلیط </button>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-3">
                     <div class="thumbnail theaterbox m-2 rounded">
                         <img src="img/ghaperit.jpg"  width="100%" height="200">
-                        <p class="alert alert-warning"><strong>نمایش طنز قپ ریت</strong></p>
-                        <button class="btn btn-danger mb-3">خرید بلیط</button>
+                        <p class="alert  btn-dark"><strong>نمایش طنز قپ ریت</strong></p>
+                        <button class="btn btn-danger mb-3"><span class="fas fa-shopping-cart"></span> خرید بلیط </button>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-3">
                     <div class="thumbnail theaterbox m-2 rounded">
                         <img src="img/ghaperit.jpg"  width="100%" height="200">
-                        <p class="alert alert-warning"><strong>نمایش طنز قپ ریت</strong></p>
-                        <button class="btn btn-danger mb-3">خرید بلیط</button>
+                        <p class="alert  btn-dark"><strong>نمایش طنز قپ ریت</strong></p>
+                        <button class="btn btn-danger mb-3"><span class="fas fa-shopping-cart"></span> خرید بلیط </button>
                     </div>
                 </div>
             </div>
@@ -74,7 +74,7 @@
 
 
 
-    <div class="container text-center bg-grey">
+    <div class="container text-center bg-grey mb-4">
         <div class="row text-center slideanim">
             <div class="col-sm-4">
                 <div class="thumbnail mx-lg-4">

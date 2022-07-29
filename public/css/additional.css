@@ -94,8 +94,6 @@ a {
     background-position: top center;
     background-repeat: no-repeat;
     background-size: cover;
-    width: 100%;
-    position: relative;
     display: inline-block;
     color: #ffffff;
 }
@@ -105,7 +103,15 @@ a {
     color: #343a40;
     background-color: #ffffff;
     border-radius: 1em 1em 0 0;
-    margin: 1.7em;
+    margin: 1.7em 0 1.7em 0;
+}
+.sidebarbox {
+    border-bottom: 6px solid #606060;
+    border-top: 7px solid #E74C3C;
+    color: #343a40;
+    background-color: #ffffff;
+    border-radius: 1em 1em 0 0;
+    margin: 1.7em 0 1.7em 1em;
 }
 .titlebox
 {
@@ -117,3 +123,10 @@ a {
     width: 50%;
     margin: 1em auto;
 }
+.usertypebox {
+    border-right: 10px solid #FF6C5C;
+    color: #E74C3C;
+    background-color: #ededed;
+    margin-bottom: 1em;
+}
+

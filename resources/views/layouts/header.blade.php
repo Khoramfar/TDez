@@ -1,5 +1,5 @@
 <div class="topbar container-fluid  p-1 text-white text-center ">
-    <p class="topbartext">پیشنهاد ویژه : ۱۰ درصد تخفیف رزرو اولین بلیط نمایش</p>
+    <p class="topbartext">پیشنهاد ویژه : بلیط رایگان نمایش به مناسبت افتتاح وب سایت</p>
 </div>
 <nav class="navbar pt-2 p-2 navbar-expand-sm bg-light navbar-dark sticky-top border-bottom">
     <div class="container">

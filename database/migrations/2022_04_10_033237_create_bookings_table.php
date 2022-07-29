@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('customer_id');
             $table->string('payment_status');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->datetime('booking_date');
             $table->timestamps();
 

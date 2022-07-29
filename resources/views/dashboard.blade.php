@@ -1,34 +1,25 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.userpanel')
+@section('title', 'پنل کاربری')
+@section('sidebar')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
-                    <p>
-                    @php
-                        echo Auth::user()->name;
-                        echo ', ';
-                        echo Auth::user()->email;
-                        echo ', ';
-                        echo Auth::user()->created_at;
-                    @endphp
-                        <br>
-                        @if((auth()->user()->role_id == '1') )
-                        <a href="{{route('theaterIndex')}}" class="underline">  Theaters  </a><br>
-                        <a href="{{route('salonIndex')}}" class="underline">  Salons  </a><br>
-
-                        @endif
-                        <a href="{{route('ShowIndex')}}" class="underline">  Shows  </a><br>
-                        <a href="{{route('BookingIndex')}}" class="underline">  MyTickets  </a><br>
-
-                </div>
-            </div>
+@endsection
+@section('insidebox')
+    <div class="container  mt-3 ">
+        <img class="mx-auto d-block" src="/img/userpanel.png" alt="Logo" style="width:200px;">
+        <h2 class="text-center">{{Auth::user()->name}}  عزیز، خوش اومدی!😍</h2>
+        <div class="mt-4 p-5 bg-warning text-dark rounded mb-3 me-3 ms-3">
+            <h1 class="mb-3">اینجا کجاست؟🤔</h1>
+            <p class="h6" >
+              در اینجا میتونی با کمک لینک های قسمت صفحات کاربری، حساب خودت رو مدیریت کنی و بلیط های گذشته دسترسی داشته باشی
+            </p>
         </div>
+
+        <div class="mt-4 p-5 bg-success text-white rounded mb-5 me-3 ms-3">
+            <h1>اگر نیاز به راهنمایی داری</h1>
+            <p>
+              و یا مشکلی برای حسابت پیش اومده و دسترسی کامل نداری، با پشتیبانی تماس بگیر 😊
+            </p>
+        </div>
+
     </div>
-</x-app-layout>
+@endsection

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('insidetop')
-    <section class="mybg">
+    <section class="mybg container-fluid">
 
         <div class="container">
                 <div class="titlebox">

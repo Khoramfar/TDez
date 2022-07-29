@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('cover_file_name')->nullable();
             $table->string('original_cover_file_name')->nullable();
-            
+            $table->boolean('public')->default(true);
             $table->timestamps();
         });
     }

@@ -49,7 +49,6 @@ Route::get('/dashboard', function () {
 Route::get('/theaters',[TheaterController::class, 'index'])->name('theaterIndex');
 Route::get('/theaters/{theater}',[TheaterController::class, 'show'])->name('ShowTheater');
 Route::post('/theaters/add',[TheaterController::class, 'store'])->name('AddTheater');
-Route::get('/theaters/edit/{theater}',[TheaterController::class, 'edit'])->name('EditTheater');
 Route::post('/theaters/update/{theater}',[TheaterController::class, 'update'])->name('UpdateTheater');
 // Salon
 Route::get('/salons',[SalonController::class, 'index'])->name('salonIndex');
@@ -61,6 +60,7 @@ Route::post('/salons/update/{salon}',[SalonController::class, 'update'])->name('
 //Classe
 Route::post('/salons/addclass',[ClassController::class, 'store'])->name('AddClassToSalon');
 Route::post('/salons/classes/update/{classe}',[ClassController::class, 'update'])->name('UpdateClass');
+Route::get('/salons/{salon}/classes',[ClassController::class, 'index'])->name('ClassIndex');
 Route::get('/salons/classes/{classe}',[ClassController::class, 'show'])->name('ShowClass');
 
 //Seat
@@ -81,3 +81,4 @@ Route::get('/Bookings/{booking}',[BookingController::class, 'show'])->name('Show
 
 //Ticket
 Route::get('/Tickets/{booking}',[TicketController::class, 'show'])->name('ShowTickets');
+

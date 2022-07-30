@@ -15,6 +15,7 @@ class TheaterController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('superadmin');
 
     }
@@ -49,8 +50,8 @@ class TheaterController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'cover' => 'required|string'
+            'description' => 'required|string|max:1024',
+            'cover' => 'required|mimes:jpg,bmp,png|max:2048'
         ]);
 
 
@@ -67,7 +68,8 @@ class TheaterController extends Controller
         );
 
         Theater::Create(["title" =>$request->title ,"description"=>$request->description, 'cover_file_name'=> $newcoverfilename, 'original_cover_file_name'=>$coverfilename]);
-        return redirect()->action([TheaterController::class, 'index']);
+        $message = 'رویداد با موفقیت ثبت شد.';
+        return redirect()->back()->with('message', $message);
     }
 
     /**
@@ -83,7 +85,7 @@ class TheaterController extends Controller
         $Slns = Salon::all();
         $usrs = User::all();
         $url = Storage::url('public/files/'.$theater->cover_file_name);
-        return view('theater.show',['theater' => $theater,'cover_url'=>$url, 'Clss' => $Cls, 'Slns'=> $Slns, 'usrs'=> $usrs]);
+        return view('theater.show',['theater' => $theater,'cover_url'=>$url, 'Clss' => $Cls, 'Slns'=> $Slns, 'usrs'=> $usrs])->render();
     }
 
     /**
@@ -94,14 +96,6 @@ class TheaterController extends Controller
      */
     public function edit(Theater $theater)
     {
-        /*
-        if (! Gate::allows('update_book', $theater)) {
-            abort(403);
-        }
-        */
-        $all_shows = Show::all();
-        $theater->load('shows');
-        return view('theater.edit',['theater' => $theater]);
     }
 
     /**
@@ -115,16 +109,12 @@ class TheaterController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'required|string|max:1024',
         ]);
-        /*
-        if (! Gate::allows('update_book', $book)) {
-            abort(403);
-        }
-        */
+
         $theater->Update(["title" =>$request->title ,"description"=>$request->description ]);
-        $url = Storage::url('public/files/'.$theater->cover_file_name);
-        return view('theater.show',['theater' => $theater,'cover_url'=>$url ]);
+        $message = 'رویداد با موفقیت بروزرسانی شد.';
+        return redirect()->back()->with('message', $message);
     }
 
     /**

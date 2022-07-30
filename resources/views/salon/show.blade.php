@@ -1,33 +1,40 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+@php
+    function PersianNumbersToEnglish($input)
+                       {
+                           $persian = ['۰', '۱', '۲', '۳', '۴', '٤', '۵', '٥', '۶', '۶', '۷', '۸', '۹'];
+                           $english = [0,  1,  2,  3,  4,  4,  5,  5,  6,  6,  7,  8,  9];
+                           return str_replace($english, $persian, $input);
+                       }
+            use Morilog\Jalali\Jalalian;
+@endphp
 
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-					<h2 style="color:green;font-size:1.5em "> Salon Information: </h2>
-					<hr>
-					<table>
-					<tr><td style="color:blue;">id:</td><td>{{$salon->id}}</td></tr>
-					<tr><td style="color:blue;">title:</td><td>{{$salon->name}}</td></tr>
-					<tr><td style="color:blue;">description:</td><td>{{ $salon->address }}</td></tr>
-					<tr><td style="color:blue;">created at:</td><td>{{$salon->created_at}}</td></tr>
-					<tr><td style="color:blue;">last update:</td><td>{{$salon->updated_at}}</td></tr>
-					</table>
-					<hr>
-					<h3 style="font-size:1.25em;color:#0083b3"> Shows: </h3>
-					@foreach($salon->shows as $show)
-						<p><a href="#" class="underline">  {{$show->date}} {{$show->salon_id}}  </a></p>
-					@endforeach
-					<hr>
-					<a href="{{ route('salonIndex') }}" class="underline">  back  </a>
-					<td><a href="{{ route('EditSalon',[$salon->id]) }}" class="underline" style="margin-left: 10px;" > edit </a></td>
-                </div>
-            </div>
-        </div>
+<table>
+    <div class="usertypebox py-2">
+        <strong class="me-2 ">شماره سالن:</strong>
+        <span class="text-dark">{{PersianNumbersToEnglish($salon->id)}}</span>
     </div>
-</x-app-layout>
+    <div class="usertypebox py-2">
+        <strong class="me-2 ">تاریخ ثبت:</strong>
+        <span class="text-dark">{{PersianNumbersToEnglish(Jalalian::fromCarbon($salon->created_at)->format('%A, %d %B %Y H:i:s' ))}}</span>
+    </div>
+    <div class="usertypebox py-2">
+        <strong class="me-2 ">تاریخ بروزرسانی:</strong>
+        <span class="text-dark">{{PersianNumbersToEnglish(Jalalian::fromCarbon($salon->updated_at)->format('%A, %d %B %Y H:i:s' ))}}</span>
+    </div>
+</table>
+<form action="{{route('UpdateSalon',[$salon->id])}}" method="post">
+    @csrf
+    <div class="form-floating mb-3 mt-3">
+        <input  class="form-control" type="text" name="name" placeholder="نام" value="{{$salon->name}}" required>
+        <label for="name">  نام سالن:</label>
+    </div>
+
+    <div class="form-floating">
+        <textarea class="form-control" id="comment" name="address" placeholder="آدرس" required>{{ $salon->address }}</textarea>
+        <label for="comment"> آدرس:</label>
+    </div>
+
+    <div class="mx-auto my-4"> <button type="submit" class="btn btn-success" > بروزرسانی </button></div>
+
+</form>
+

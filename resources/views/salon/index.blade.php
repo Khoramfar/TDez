@@ -1,89 +1,162 @@
-@extends('layouts.hello_layout')
-@section('onvan', 'Salons')
-@section('mohtava')
-<style>
-a.disabled {
-  pointer-events: none;
-  cursor: default !important;
-  text-decoration: none !important;
-  color: #7F8C8D !important;
-}
-</style>
-	<div class="p-6 bg-white border-b border-gray-200">
-		<h1 > It is list of all Salons Created by you: </h1>
-		<hr>
-		<table>
-		@foreach($Slns as $S)
-		<tr>
-			<td><a href="{{route('ShowSalon',[$S])}}" class="underline">  {{$S->name}}  </a></td>
-            @foreach($S->Classes as $C)
-                <td><a href="{{route('ShowClass',[$C])}}" class="underline">  {{$C->name}}  </a></td>
-            @endforeach
-        </tr>
-		@endforeach
-		</table>
-	</div>
+@extends('layouts.userpanel')
+@section('title', 'مدیریت سالن ها')
+@section('sidebar')
 
-	<hr>
-	<div class="p-6 bg-white border-b border-gray-200">
-		<h1> Add a new Salon: </h1>
-		@if ($errors->any())
-			<div>
-				<ul>
-					@foreach ($errors->all() as $error)
-						<li style="color:#E74C3C">{{ $error }}</li>
-					@endforeach
-				</ul>
-			</div>
-		@endif
-		<form action="{{route('AddSalon')}}" method="post" enctype="multipart/form-data" >
-			@csrf
-			<div class="container-fluid ">
-				<div class="row">
-					<div class="col-lg-2 col-md-2 mt-3 "> Name: </div>
-					<div class="col-lg-4 col-md-4  mt-3"> <input  class="form-control" type="text" name="name" placeholder="Enter salon name" required></div>
-				</div>
-				<div class="row">
-					<div class="col-lg-2 col-md-2 mt-3 "> Address: </div>
-                    <div class="col-lg-4 col-md-4  mt-3"> <input  class="form-control" type="text" name="address" placeholder="Enter Address" required></div>
-				</div>
+@endsection
+@section('insidebox')
+    <div class="container  mt-3 ">
 
-				<div class="col-lg-2 col-md-2"> <button type="submit" class="btn btn-success"> Add </button></div>
-			</div>
-		</form>
-
-        <h1> Add a New Class to Salon: </h1>
+        <div class="alert alert-warning alert-dismissible">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <p class="h6 mt-1">
+                در این قسمت میتوانید سالن جدید ایجاد کرده و کلاس های قیمتی و چینش صندلی به آن اضافه کنید.
+            </p>
+        </div>
         @if ($errors->any())
-            <div>
+            <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
-                        <li style="color:#E74C3C">{{ $error }}</li>
+                        <li >{{ $error }}</li>
                     @endforeach
                 </ul>
             </div>
         @endif
-        <form action="{{route('AddClassToSalon')}}" method="post" enctype="multipart/form-data" >
-            @csrf
-            <div class="container-fluid ">
-                <div class="row">
-                    <div class="col-lg-2 col-md-2 mt-3 "> Name: </div>
-                    <div class="col-lg-4 col-md-4  mt-3"> <input  class="form-control" type="text" name="name" placeholder="Enter Class name" required></div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2 col-md-2 mt-3 ">      Add Salon: </div>
-                    <div class="col-lg-4 col-md-4  mt-3">
-                    <select class="form-control" name="salon" id="salon">
-                              <option value="" disabled selected>Select Salon</option>
-                        @foreach($Slns as $Sln)
-                            <option value={{$Sln->id}}>{{$Sln->name}} </option>
-                        @endforeach
-                    </select>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-2"> <button type="submit" class="btn btn-success"> Add </button></div>
+        @if (session()->has('message'))
+            <div class="alert alert-success">
+                {{ session()->get('message') }}
             </div>
-        </form>
-	</div>
-@endsection
+        @endif
+        <img class="mx-auto d-block" src="/img/userpanel.png" alt="Logo" style="width:200px;">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#theaters">لیست سالن ها</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-danger" data-bs-toggle="tab" href="#addnew">اضافه کردن سالن</a>
+            </li>
+        </ul>
 
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div id="theaters" class="container tab-pane active"><br>  <!-- Salons TAB START-->
+                <table class="table table-secondary table-striped">
+                    <thead>
+                    <tr>
+                        <th>نام سالن</th>
+                        <th>کلاس قیمت</th>
+                        <th>جزئیات و ویرایش</th>
+                        <th>حذف</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($Slns as $S)
+                        <tr>
+                            <td> {{$S->name}}</td>
+                            <td>
+                                <button type="button" onclick="classmanage({{$S->id}})" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#classmanage" > کلاس بندی</button>
+                            </td>
+
+                            <td>
+                                <button type="button" onclick="editsalon({{$S->id}})" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edittheater" > جزئیات</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger"><span class="fas fa-remove"></span></button>
+                            </td>
+                        </tr>
+                    @endforeach
+
+                    </tbody>
+                </table>
+            </div>
+            <div id="addnew" class="container tab-pane fade"><br>  <!-- ADD Salon TAB START-->
+                <form action="{{route('AddSalon')}}" method="post" enctype="multipart/form-data" >
+                    @csrf
+                    <div class="form-floating mb-3 mt-3">
+                        <input  class="form-control" type="text" name="name" placeholder="Enter title" required>
+                        <label for="title">  نام سالن:</label>
+                    </div>
+
+                    <div class="form-floating">
+                        <textarea class="form-control" id="comment" name="address" placeholder="توضیحات" required></textarea>
+                        <label for="comment"> آدرس:</label>
+                    </div>
+
+                    <div class="mx-auto my-4"> <button type="submit" class="btn btn-success"> اضافه کردن سالن </button></div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <!-- Edit Salon Modal -->
+    <div class="modal fade" id="edittheater">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <h4 class="modal-title">ویرایش سالن</h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body" id="editsalonbody">
+                    <div class="spinner-border"></div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">خروج</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Class Modal -->
+    <div class="modal fade" id="classmanage">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <h4 class="modal-title">کلاس بندی</h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body" id="classmanagebody">
+                    <div class="spinner-border"></div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">خروج</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function editsalon(id) {
+            $.get("/salons/show/" + id, function(data, status){
+                document.getElementById("editsalonbody").innerHTML = data;
+            });
+        }
+
+        function classmanage(id) {
+            $.get("/salons/" + id + "/classes/", function(data, status){
+                document.getElementById("classmanagebody").innerHTML = data;
+            });
+        }
+        function classshow(id) {
+            $.get("/salons/classes/" + id, function(data, status){
+                document.getElementById("classlistbody").innerHTML = data;
+            });
+        }
+    </script>
+
+@endsection

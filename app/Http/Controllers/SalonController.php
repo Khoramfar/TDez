@@ -15,6 +15,7 @@ class SalonController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('superadmin');
 
     }
@@ -49,12 +50,12 @@ class SalonController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
+            'address' => 'required|string|max:1024',
         ]);
 
-
         Salon::Create(["name" =>$request->name ,"address" =>$request->address]);
-        return redirect()->action([SalonController::class, 'index']);
+        $message = 'سالن با موفقیت ثبت شد.';
+        return redirect()->back()->with('message', $message);
     }
 
     /**
@@ -66,7 +67,7 @@ class SalonController extends Controller
     public function show(Salon $salon)
     {
         $salon->load('shows');
-        return view('salon.show',['salon' => $salon]);
+        return view('salon.show',['salon' => $salon])->render();
     }
 
     /**
@@ -77,8 +78,6 @@ class SalonController extends Controller
      */
     public function edit(Salon $salon)
     {
-        $salon->load('shows');
-        return view('salon.edit',['salon' => $salon]);
     }
 
     /**
@@ -92,11 +91,12 @@ class SalonController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
+            'address' => 'required|string|max:1024',
         ]);
 
-        $salon->Update(["name" =>$request->name ,"address"=>$request->address ]);
-        return view('salon.show',['salon' => $salon ]);
+        $salon->Update(["name" =>$request->name ,"address"=>$request->address]);
+        $message = 'سالن با موفقیت بروزرسانی شد.';
+        return redirect()->back()->with('message', $message);
     }
 
     /**

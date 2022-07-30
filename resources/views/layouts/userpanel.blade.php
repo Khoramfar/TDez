@@ -18,7 +18,7 @@
                 <a href="{{route('salonIndex')}}" >  <button class="btn btn-outline-dark my-1 w-100"><span class="fas fa-link"></span> مدیریت سالن ها </button>  </a>
                 @endif
                 @if((auth()->user()->role_id == '1') || auth()->user()->role_id == '2')
-                    <a href="{{route('ShowIndex')}}" >  <button class="btn btn-outline-dark my-1 w-100"><span class="fas fa-link"></span> رویدادهای من </button>  </a>
+                    <a href="{{route('ShowIndex')}}" >  <button class="btn btn-outline-dark my-1 w-100"><span class="fas fa-link"></span> اجراهای من </button>  </a>
                 @endif
                 <a href="{{route('BookingIndex')}}" >  <button class="btn btn-outline-dark my-1 w-100"><span class="fas fa-link"></span> خریدهای من </button>  </a>
 
@@ -33,19 +33,21 @@
                     <strong><span class="fas fa-ranking-star mx-2 h5"></span>سطح کاربری:</strong>
                     <span class="text-dark">
                     @php
-                        if(auth()->user()->role_id == '1')
-                         {
-                             $role = 'مدیر کل سایت';
-                         }
-                         elseif(auth()->user()->role_id == '2')
-                         {
-                             $role = 'مدیر نمایش';
-                         }
-                         elseif(auth()->user()->role_id == '3')
-                         {
-                             $role = 'کاربر عادی';
-                         }
-                         echo  $role;
+                        if (Auth::check()){
+                            if(auth()->user()->role_id == '1')
+                             {
+                                 $role = 'مدیر کل سایت';
+                             }
+                             elseif(auth()->user()->role_id == '2')
+                             {
+                                 $role = 'مدیر نمایش';
+                             }
+                             elseif(auth()->user()->role_id == '3')
+                             {
+                                 $role = 'کاربر عادی';
+                             }
+                             echo  $role;
+                            }
                     @endphp
                     </span>
                 </div>

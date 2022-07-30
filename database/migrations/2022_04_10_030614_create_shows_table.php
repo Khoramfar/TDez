@@ -21,7 +21,8 @@ return new class extends Migration
             $table->unsignedBigInteger('admin_id');
 
 
-            $table->datetime('show_date');
+            $table->date('show_date');
+            $table->unsignedInteger('show_time');
             $table->boolean('public')->default(false);
             $table->timestamps();
 

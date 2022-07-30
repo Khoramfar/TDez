@@ -8,14 +8,27 @@ use Illuminate\Http\Request;
 
 class ClassController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('superadmin');
+
+    }
     /**
-     * Display a listing of the resource.
+     * Display the specified resource.
      *
+     * @param  \App\Models\Salon  $salon
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function index(Salon $salon)
     {
-        //
+        $salon->load('classes');
+        foreach($salon->classes as $C)
+        {
+            $C->load('seats');
+        }
+        return view('class.index',['salon' => $salon])->render();
     }
 
     /**
@@ -43,7 +56,8 @@ class ClassController extends Controller
         $class = Classe::Create(["name" =>$request->name ,"salon_id" =>$request->salon]);
         $salon = Salon::find($request->salon);
         $salon->Classes()->save($class);
-        return back()->withInput();
+        $message = 'کلاس با موفقیت ثبت شد.';
+        return redirect()->back()->with('message', $message);
     }
 
     /**
@@ -55,7 +69,7 @@ class ClassController extends Controller
     public function show(Classe $classe)
     {
         $classe->load('seats');
-        return view('class.show',['class' => $classe]);
+        return view('class.show',['class' => $classe])->render();
     }
 
     /**

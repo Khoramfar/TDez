@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Show extends Model
 {
     use HasFactory;
-    protected $fillable = ['theater_id','salon_id','admin_id','show_date','public', 'is_cancelled'];
+    protected $fillable = ['theater_id','salon_id','admin_id','show_date','show_time','public', 'is_cancelled'];
     public function Theater()
 	{
 		return $this->belongsTo('App\Models\Theater');

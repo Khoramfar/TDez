@@ -9,6 +9,9 @@
 @endphp
 <h4 class="text-center mb-3">{{$salon->name}}</h4>
 <ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" data-bs-toggle="tab" href="#addnewclass">افزودن کلاس جدید</a>
+    </li>
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">لیست کلاس ها</a>
         <ul class="dropdown-menu">
@@ -21,16 +24,12 @@
         </ul>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link active" data-bs-toggle="tab" href="#addnewclass">افزودن کلاس جدید</a>
-    </li>
-
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
     <div class="tab-pane container active" id="addnewclass">
-        <form action="{{route('AddClassToSalon')}}" method="post" enctype="multipart/form-data" >
+        <form action="{{route('AddClassToSalon')}}" method="post">
             @csrf
             <div class="form-floating mb-3 mt-3">
                 <input  class="form-control" type="text" name="name" placeholder="Enter title" required>

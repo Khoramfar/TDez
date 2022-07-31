@@ -24,10 +24,6 @@ class ClassController extends Controller
     public function index(Salon $salon)
     {
         $salon->load('classes');
-        foreach($salon->classes as $C)
-        {
-            $C->load('seats');
-        }
         return view('class.index',['salon' => $salon])->render();
     }
 
@@ -49,7 +45,6 @@ class ClassController extends Controller
      */
     public function store(Request $request)
     {
-        $name = $request->name;
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
@@ -69,6 +64,7 @@ class ClassController extends Controller
     public function show(Classe $classe)
     {
         $classe->load('seats');
+        $classe->seats->sortBy('row');
         return view('class.show',['class' => $classe])->render();
     }
 
@@ -92,7 +88,12 @@ class ClassController extends Controller
      */
     public function update(Request $request, Classe $classe)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $classe->Update(["name" =>$request->name]);
+        $message = 'کلاس با موفقیت بروزرسانی شد.';
+        return redirect()->back()->with('message', $message);
     }
 
     /**

@@ -82,13 +82,10 @@
             <div id="addnew" class="container tab-pane fade"><br>  <!-- ADD THEATER TAB START-->
                 <form action="{{route('AddTheater')}}" method="post" enctype="multipart/form-data" >
                     @csrf
-
-
                     <div class="form-floating mb-3 mt-3">
                         <input  class="form-control" type="text" name="title" placeholder="Enter title" required>
                         <label for="title">  نام رویداد:</label>
                     </div>
-
                     <div class="form-floating">
                         <textarea class="form-control" id="comment" name="description" placeholder="توضیحات" required></textarea>
                         <label for="comment"> توضیحات تئاتر(برای مثال نام بازیگران و ژانر):</label>
@@ -96,9 +93,7 @@
 
                     <label for="cover" class="form-label mt-3">تصویر شاخص:</label>
                     <input class="form-control form-control-sm" name="cover" id="cover" type="file">
-
-                        <div class="mx-auto my-4"> <button type="submit" class="btn btn-success"> اضافه کردن رویداد </button></div>
-
+                     <div class="mx-auto my-4"> <button type="submit" class="btn btn-success"> اضافه کردن رویداد </button></div>
                 </form>
             </div>
         </div>

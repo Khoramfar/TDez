@@ -5,10 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Classe;
 use App\Models\Salon;
 use App\Models\Seat;
+use App\Models\Theater;
 use Illuminate\Http\Request;
-
+use Redirect;
 class SeatController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('superadmin');
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -37,14 +44,20 @@ class SeatController extends Controller
      */
     public function store(Request $request)
     {
-        $name = $request->name;
         $request->validate([
-            'name' => 'required|string|max:255',
+            'row' => 'required|numeric|max:255',
+            'count' => 'required|numeric|max:255'
         ]);
-        $seat = Seat::Create(["class_id" =>$request->classid,"name" =>$request->name , "row" =>$request->row]);
+        $seat = Seat::where('class_id', '=', $request->classid)->where('row', '=', $request->row)->first();
+        if ($seat !== null)
+        {
+            return Redirect::back()->withErrors(['ردیف مورد نظر تکراری است و قبلا ثبت شده است.']);
+        }
+        $seat = Seat::Create(["class_id" =>$request->classid, "row" =>$request->row , "count" =>$request->count ]);
         $class = Classe::find($request->classid);
         $class->Seats()->save($seat);
-        return back()->withInput();
+        $message = 'ردیف صندلی با موفقیت ثبت شد.';
+        return redirect()->back()->with('message', $message);
     }
 
     /**

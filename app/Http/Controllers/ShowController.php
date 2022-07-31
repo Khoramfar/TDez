@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Storage;
 use Redirect;
 class ShowController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('superadmin');
+
+    }
     /**
      * Display a listing of the resource.
      *

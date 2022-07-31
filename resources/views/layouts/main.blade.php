@@ -8,10 +8,13 @@
       <link href="/css/font.css" rel="stylesheet">
       <link href="/css/additional.css" rel="stylesheet">
       <link href="/css/all.css" rel="stylesheet">
+      <link href="/css/persian-datepicker.css" rel="stylesheet" />
       <link rel="icon" href="/img/ico/favicon.ico" />
 	  <script src="/js/bootstrap.min.js"></script>
       <script src="/js/jquery.min.js"></script>
-	</head>
+      <script src="/js/persian-date.js"></script>
+      <script src="/js/persian-datepicker.js"></script>
+    </head>
 
 	<body>
 		@include('/layouts/header')
@@ -22,5 +25,3 @@
         @include('/layouts/footer')
 	</body>
 </html>
-
-

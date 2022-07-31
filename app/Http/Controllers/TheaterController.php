@@ -27,7 +27,8 @@ class TheaterController extends Controller
     public function index()
     {
         $Ths = Theater::all();
-        return view('theater.index',['Ths' => $Ths]);
+        $Shows = Show::all();
+        return view('theater.index',['Ths' => $Ths, 'Shows' => $Shows]);
     }
 
     /**
@@ -81,11 +82,16 @@ class TheaterController extends Controller
     public function show(Theater $theater)
     {
         $theater->load('shows');
-        $Cls = Classe::all();
-        $Slns = Salon::all();
-        $usrs = User::all();
         $url = Storage::url('public/files/'.$theater->cover_file_name);
-        return view('theater.show',['theater' => $theater,'cover_url'=>$url, 'Clss' => $Cls, 'Slns'=> $Slns, 'usrs'=> $usrs])->render();
+        return view('theater.show',['theater' => $theater,'cover_url'=>$url])->render();
+    }
+
+
+    public function manage(Theater $theater)
+    {
+        $theater->load('shows');
+        $url = Storage::url('public/files/'.$theater->cover_file_name);
+        return view('theater.show',['theater' => $theater,'cover_url'=>$url])->render();
     }
 
     /**
@@ -116,6 +122,23 @@ class TheaterController extends Controller
         $message = 'رویداد با موفقیت بروزرسانی شد.';
         return redirect()->back()->with('message', $message);
     }
+
+    public function is_public(Request $request, Theater $theater)
+    {
+        if($theater->public == 0 )
+        {
+            $theater->Update(["public" =>'1']);
+            $message = 'رویداد در صفحه اصلی اضافه شد';
+            return redirect()->back()->with('message', $message);
+        }
+        else {
+            $theater->Update(["public" =>'0']);
+            $message = 'رویداد از صفحه اصلی سایت حذف شد';
+            return redirect()->back()->with('message', $message);
+        }
+
+    }
+
 
     /**
      * Remove the specified resource from storage.

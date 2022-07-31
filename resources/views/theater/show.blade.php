@@ -1,11 +1,13 @@
 @php
-    function PersianNumbersToEnglish($input)
-                       {
-                           $persian = ['۰', '۱', '۲', '۳', '۴', '٤', '۵', '٥', '۶', '۶', '۷', '۸', '۹'];
-                           $english = [0,  1,  2,  3,  4,  4,  5,  5,  6,  6,  7,  8,  9];
-                           return str_replace($english, $persian, $input);
-                       }
-            use Morilog\Jalali\Jalalian;
+    if(!function_exists("PersianNumbersToEnglish")) {
+        function PersianNumbersToEnglish($input)
+                           {
+                               $persian = ['۰', '۱', '۲', '۳', '۴', '٤', '۵', '٥', '۶', '۶', '۷', '۸', '۹'];
+                               $english = [0,  1,  2,  3,  4,  4,  5,  5,  6,  6,  7,  8,  9];
+                               return str_replace($english, $persian, $input);
+                           }
+                           }
+                use Morilog\Jalali\Jalalian;
 @endphp
 <img class="img-thumbnail rounded mx-auto d-block mb-3" src={{$cover_url}}  style="width:200px;">
 

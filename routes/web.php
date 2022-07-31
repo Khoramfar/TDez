@@ -9,6 +9,8 @@ use App\Http\Controllers\PriceController;
 use App\Http\Controllers\ShowController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\MainController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,9 +22,9 @@ use App\Http\Controllers\TicketController;
 |
 */
 require __DIR__.'/auth.php';
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+
+Route::get('/',[MainController::class, 'index'])->name('home');
+
 // Mainpages
 Route::get('/faq', function () {
     return view('faq');
@@ -46,10 +48,15 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 // Theater
+
 Route::get('/theaters',[TheaterController::class, 'index'])->name('theaterIndex');
-Route::get('/theaters/{theater}',[TheaterController::class, 'show'])->name('ShowTheater');
+Route::get('/theaters/{theater}',[TheaterController::class, 'manage'])->name('ShowTheater');
 Route::post('/theaters/add',[TheaterController::class, 'store'])->name('AddTheater');
 Route::post('/theaters/update/{theater}',[TheaterController::class, 'update'])->name('UpdateTheater');
+Route::post('/theaters/ispublic/{theater}',[TheaterController::class, 'is_public'])->name('PublicTheater');
+
+Route::get('/theaters/buy/{theater}',[TheaterController::class, 'show'])->name('TheaterBuy');
+
 // Salon
 Route::get('/salons',[SalonController::class, 'index'])->name('salonIndex');
 Route::get('/salons/show/{salon}',[SalonController::class, 'show'])->name('ShowSalon');
@@ -68,11 +75,17 @@ Route::post('/salons/classes/addseat',[SeatController::class, 'store'])->name('A
 
 //Price
 Route::post('/theaters/price/add',[PriceController::class, 'store'])->name('AddPriceToTheater');
+Route::get('/theaters/{theater}/price',[PriceController::class, 'index'])->name('PriceIndex');
+Route::get('/theaters/price/{price}',[PriceController::class, 'show'])->name('ShowPrice');
+Route::post('/theaters/price/update/{price}',[PriceController::class, 'update'])->name('UpdatePrice');
 
 //Show
+Route::get('/theaters/{theater}/shows',[ShowController::class, 'showmanage'])->name('ShowManage');
+Route::post('/shows/ispublic/{show}',[ShowController::class, 'is_public'])->name('PublicShow');
 Route::post('/shows/add',[ShowController::class, 'store'])->name('AddShowToTheater');
 Route::get('/shows',[ShowController::class, 'index'])->name('ShowIndex');
 Route::get('/shows/{show}',[ShowController::class, 'show'])->name('ShowShow');
+Route::get('/shows/{show}/stats',[ShowController::class, 'stats'])->name('ShowStats');
 
 //Booking
 Route::post('/Booking/add',[BookingController::class, 'store'])->name('AddBooking');

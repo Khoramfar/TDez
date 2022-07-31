@@ -40,34 +40,16 @@
             <h2 class="text-center alert  btn-dark">  <strong>رویدادهای جدید</strong></h2>
             <p class="text-center alert alert-info">برای انتخاب تاریخ رزرو و خرید بلیط بر روی تئاتر مورد نظر کلیک کنید.</p>
             <div class="row text-center mb-5">
-                <div class="col-sm-6 col-lg-3 ">
-                    <div class="thumbnail theaterbox m-2 rounded">
-                        <img src="img/ghaperit.jpg"  width="100%" height="200">
-                        <p class="alert  btn-dark"><strong>نمایش طنز قپ ریت</strong></p>
-                        <button class="btn btn-danger mb-3"><span class="fas fa-shopping-cart"></span> خرید بلیط </button>
+                @foreach ($Ths as $T)
+                    <div class="col-sm-6 col-lg-3 ">
+                        <div class="thumbnail theaterbox m-2 rounded">
+                            <img src="{{Storage::url('public/files/'.$T->cover_file_name)}}"  width="100%" height="200">
+                            <p class="alert  btn-dark"><strong> {{$T->title}}</strong></p>
+                            <button class="btn btn-danger mb-3"><span class="fas fa-shopping-cart"></span> خرید بلیط </button>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="thumbnail theaterbox m-2 rounded">
-                        <img src="img/ghaperit.jpg"  width="100%" height="200">
-                        <p class="alert  btn-dark"><strong>نمایش طنز قپ ریت</strong></p>
-                        <button class="btn btn-danger mb-3"><span class="fas fa-shopping-cart"></span> خرید بلیط </button>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="thumbnail theaterbox m-2 rounded">
-                        <img src="img/ghaperit.jpg"  width="100%" height="200">
-                        <p class="alert  btn-dark"><strong>نمایش طنز قپ ریت</strong></p>
-                        <button class="btn btn-danger mb-3"><span class="fas fa-shopping-cart"></span> خرید بلیط </button>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="thumbnail theaterbox m-2 rounded">
-                        <img src="img/ghaperit.jpg"  width="100%" height="200">
-                        <p class="alert  btn-dark"><strong>نمایش طنز قپ ریت</strong></p>
-                        <button class="btn btn-danger mb-3"><span class="fas fa-shopping-cart"></span> خرید بلیط </button>
-                    </div>
-                </div>
+                @endforeach
+
             </div>
         </div>
     </div>

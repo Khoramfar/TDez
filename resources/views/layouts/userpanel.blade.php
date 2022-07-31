@@ -1,6 +1,16 @@
 @extends('layouts.main')
 @section('insidetop')
-
+    @php
+        if(!function_exists("PersianNumbersToEnglish")) {
+            function PersianNumbersToEnglish($input)
+                               {
+                                   $persian = ['۰', '۱', '۲', '۳', '۴', '٤', '۵', '٥', '۶', '۶', '۷', '۸', '۹'];
+                                   $english = [0,  1,  2,  3,  4,  4,  5,  5,  6,  6,  7,  8,  9];
+                                   return str_replace($english, $persian, $input);
+                               }
+                               }
+                    use Morilog\Jalali\Jalalian;
+    @endphp
     <section class="mybg container-fluid">
         <div class="container">
                 <div class="titlebox">
@@ -55,13 +65,7 @@
                     <strong><span class="fas fa-calendar mx-2 h5"></span>تاریخ عضویت:</strong>
                     <span class="text-dark">
         @php
-            function PersianNumbersToEnglish($input)
-                               {
-                                   $persian = ['۰', '۱', '۲', '۳', '۴', '٤', '۵', '٥', '٦', '۶', '۷', '۸', '۹'];
-                                   $english = [0,  1,  2,  3,  4,  4,  5,  5,  6,  6,  7,  8,  9];
-                                   return str_replace($english, $persian, $input);
-                               }
-                use Morilog\Jalali\Jalalian;
+
                     $date = Jalalian::fromCarbon(Auth::user()->created_at)->format('%A, %d %B %Y');
                     echo PersianNumbersToEnglish($date);
         @endphp

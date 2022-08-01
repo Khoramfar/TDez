@@ -1,68 +1,62 @@
-@extends('layouts.hello_layout')
-@section('onvan', 'Salons')
-@section('mohtava')
-    <style>
-        a.disabled {
-            pointer-events: none;
-            cursor: default !important;
-            text-decoration: none !important;
-            color: #7F8C8D !important;
-        }
-    </style>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <h2 style="color:green;font-size:1.5em "> Buy Show Tickets: </h2>
-                    <hr>
-                    <img src={{$cover_url}} alt="Cover Image Avialable" style="width:200px;">
-                    <table>
-                        <tr><td style="color:blue;">id:</td><td>{{$Show->id}}</td></tr>
-                        <tr><td style="color:blue;">title:</td><td>{{$Show->theater->title}}</td></tr>
-                        <tr><td style="color:blue;">description:</td><td>{{ $Show->theater->description }}</td></tr>
-                        <tr><td style="color:blue;">Show Date:</td><td>{{$Show->show_date}}</td></tr>
-                    </table>
-                    <hr>
-                    <a href="{{ route('ShowIndex') }}" class="underline">  back  </a>
-                    @if ($errors->any())
-                        <div>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li style="color:#E74C3C">{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
+@php
+    function PersianNumbersToEnglish($input)
+                       {
+                           $persian = ['۰', '۱', '۲', '۳', '۴', '٤', '۵', '٥', '۶', '۶', '۷', '۸', '۹'];
+                           $english = [0,  1,  2,  3,  4,  4,  5,  5,  6,  6,  7,  8,  9];
+                           return str_replace($english, $persian, $input);
+                       }
+            use Morilog\Jalali\Jalalian;
+@endphp
+<div class="usertypebox py-2">
+    سانس ساعت
+    @php
+        echo PersianNumbersToEnglish($Show->show_time);
+    @endphp
+    روز
+    @php
+        echo PersianNumbersToEnglish(\Morilog\Jalali\CalendarUtils::strftime('%A, %d %B %Y', strtotime($Show->show_date)));
+    @endphp
+</div>
+<div class="d-block mx-auto mb-2 text-center">
+نمونه صندلی قابل خرید
+<input class="btn-check d-inline" type="checkbox" name="tickets[]" id="btn-check-outlinedtest" value="" autocomplete="off" >
+<label class="btn btn-outline-success btn-sm seatsize" for="btn-check-outlinedtest">۱</label>
+    نمونه صندلی فروخته شده
+    <input class="btn-check d-inline" type="checkbox" name="tickets[]" id="btn-check-outlinedtest2" value="" autocomplete="off" disabled>
+    <label class="btn btn-danger btn-sm seatsize" for="btn-check-outlinedtest2">۱</label>
+</div>
+
+<form action="{{route('AddBooking')}}" method="post" >
+    @csrf
+    <fieldset>
+    @foreach($Show->tickets->groupBy('class_name') as $classname => $rows)
+       <h1> {{$classname}}</h1>
+        @foreach($rows->sortBy('row')->groupBy('row') as $rowname => $tickets)
+            <div class="card-header">
+                <span class="h6 btn-sm btn-warning text-dark "> ردیف {{PersianNumbersToEnglish($rowname)}}</span>
+                @foreach($tickets as $T)
+                    @if($T->status=='free')
+                        <input class="btn-check d-inline" type="checkbox" name="tickets[]" id="btn-check-outlined{{$T->id}}" value="{{$T->id}}" autocomplete="off" >
+                        <label class="btn btn-outline-success btn-sm seatsize" for="btn-check-outlined{{$T->id}}">{{PersianNumbersToEnglish($T->name)}}</label>
+                    @else
+                        <input class="btn-check d-inline" type="checkbox" name="tickets[]" id="btn-check-outlined{{$T->id}}" value="{{$T->id}}" autocomplete="off" disabled >
+                        <label class="btn btn-danger btn-sm seatsize" for="btn-check-outlined{{$T->id}}">{{PersianNumbersToEnglish($T->name)}}</label>
+
                     @endif
-                    <h1> Seats: </h1>
 
-                    <form action="{{route('AddBooking')}}" method="post" enctype="multipart/form-data" >
-                        @csrf
-                        <div class="container-fluid ">
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 mt-3 ">      Select Seats: </div>
-                                <div class="col-lg-4 col-md-4  mt-3">
-                                    <fieldset>
-                                    @foreach($Show->tickets as $T)
-                                            <input type="checkbox" name="tickets[]" value="{{$T->id}}"> {{$T->name}} <br>
-                                        @endforeach
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 mt-3 "> Description: </div>
-                                <div class="col-lg-4 col-md-4  mt-3"> <input  class="form-control" type="text" name="description" ></div>
-                            </div>
-
-                            <input name="showid" type="hidden" value="{{$Show->id}}">
-
-                            <div class="col-lg-2 col-md-2"> <button type="submit" class="btn btn-success"> Buy Tickets </button></div>
-                        </div>
-                    </form>
-
-
-
-                </div>
+                @endforeach
             </div>
-        </div>
+        @endforeach
+        <br>
+    @endforeach
+    </fieldset>
+
+    <div class="form-floating">
+        <textarea class="form-control" id="description" name="description" placeholder="توضیحات" ></textarea>
+        <label for="description"> توضیحات:</label>
     </div>
-@endsection
+    <input name="showid" type="hidden" value="{{$Show->id}}">
+
+    <div class="mx-auto my-4"> <button type="submit" class="btn btn-success"> پرداخت و ثبت خرید</button></div>
+
+</form>

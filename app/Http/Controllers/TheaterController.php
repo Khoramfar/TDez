@@ -16,7 +16,7 @@ class TheaterController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('superadmin');
+        $this->middleware('superadmin')->except(['show']);
 
     }
     /**
@@ -81,9 +81,9 @@ class TheaterController extends Controller
      */
     public function show(Theater $theater)
     {
-        $theater->load('shows');
         $url = Storage::url('public/files/'.$theater->cover_file_name);
-        return view('theater.show',['theater' => $theater,'cover_url'=>$url])->render();
+        $shows = Show::where('theater_id', '=', $theater->id)->where('public', '=', '1')->get();
+        return view('theater.buy',['theater' => $theater,'cover_url'=>$url,'shows' => $shows]);
     }
 
 

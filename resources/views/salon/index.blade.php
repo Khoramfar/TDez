@@ -78,7 +78,7 @@
                     </div>
 
                     <div class="form-floating">
-                        <textarea class="form-control" id="comment" name="address" placeholder="توضیحات" required></textarea>
+                        <textarea class="form-control" id="comment" name="address" placeholder="آدرس" required></textarea>
                         <label for="comment"> آدرس:</label>
                     </div>
 

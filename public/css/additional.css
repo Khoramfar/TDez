@@ -149,3 +149,6 @@ a {
 .dropdown-menu {
     min-width: 20rem;
 }
+.seatsize {
+    width: 2.1em;
+}

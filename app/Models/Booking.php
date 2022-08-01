@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     use HasFactory;
-    protected $fillable = ['customer_id','payment_status','description','booking_date'];
+    protected $fillable = ['customer_id','show_id','payment_status','description','booking_date'];
     public function Customer()
 	{
 		return $this->belongsTo('App\Models\User');
@@ -17,4 +17,9 @@ class Booking extends Model
 	{
 		return $this->hasMany('App\Models\Ticket');
 	}
+    public function Show()
+    {
+        return $this->belongsTo('App\Models\Show');
+    }
+
 }

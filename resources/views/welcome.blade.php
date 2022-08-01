@@ -45,7 +45,7 @@
                         <div class="thumbnail theaterbox m-2 rounded">
                             <img src="{{Storage::url('public/files/'.$T->cover_file_name)}}"  width="100%" height="200">
                             <p class="alert  btn-dark"><strong> {{$T->title}}</strong></p>
-                            <button class="btn btn-danger mb-3"><span class="fas fa-shopping-cart"></span> خرید بلیط </button>
+                           <a href="{{route('TheaterBuy',[$T->id])}}"> <button class="btn btn-danger mb-3"><span class="fas fa-shopping-cart"></span> خرید بلیط </button></a>
                         </div>
                     </div>
                 @endforeach

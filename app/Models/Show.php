@@ -25,4 +25,8 @@ class Show extends Model
 	{
 		return $this->hasMany('App\Models\Ticket');
 	}
+    public function Bookings()
+    {
+        return $this->hasMany('App\Models\Booking');
+    }
 }

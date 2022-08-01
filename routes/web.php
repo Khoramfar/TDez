@@ -83,8 +83,9 @@ Route::post('/theaters/price/update/{price}',[PriceController::class, 'update'])
 Route::get('/theaters/{theater}/shows',[ShowController::class, 'showmanage'])->name('ShowManage');
 Route::post('/shows/ispublic/{show}',[ShowController::class, 'is_public'])->name('PublicShow');
 Route::post('/shows/add',[ShowController::class, 'store'])->name('AddShowToTheater');
-Route::get('/shows',[ShowController::class, 'index'])->name('ShowIndex');
 Route::get('/shows/{show}',[ShowController::class, 'show'])->name('ShowShow');
+
+Route::get('/shows',[ShowController::class, 'index'])->name('MyShowsIndex');
 Route::get('/shows/{show}/stats',[ShowController::class, 'stats'])->name('ShowStats');
 
 //Booking

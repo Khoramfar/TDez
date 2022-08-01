@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Ticket;
+use App\Models\Show;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -11,6 +12,11 @@ use Illuminate\Support\Facades\Storage;
 use Redirect;
 class BookingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -41,6 +47,11 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
+        $show = Show::where('id', '=', $request->showid)->first();
+        if ($show === null)
+        {
+            return Redirect::back()->withErrors(['اجرای مورد نظر یافت نشد']);
+        }
         $id = Auth::id();
         $currentTime = Carbon::now();
         foreach ($request->tickets as $ticketid)
@@ -48,11 +59,11 @@ class BookingController extends Controller
             $selectedticket = Ticket::where('id', '=', $ticketid)->first();
             if($selectedticket->status != 'free')
             {
-                return Redirect::back()->withErrors(['Seat is taken.Select Another Seat']);
+                return Redirect::back()->withErrors(['صندلی انتخابی شما فروخته شده است. لطفا یک صندلی دیگر انتخاب کنید']);
             }
         }
 
-        $created_booking =  Booking::Create(["customer_id" =>$id ,"payment_status"=>'success', 'description'=> $request->description, 'booking_date'=>$currentTime ]);
+        $created_booking =  Booking::Create(["customer_id" =>$id ,"show_id"=> $request->showid ,"payment_status"=>'success', 'description'=> $request->description, 'booking_date'=>$currentTime ]);
         foreach ($request->tickets as $ticketid)
         {
             $selectedticket = Ticket::where('id', '=', $ticketid)->first();
@@ -61,7 +72,8 @@ class BookingController extends Controller
             $selectedticket->update();
         }
 
-        return redirect()->action([ShowController::class, 'index']);
+        $message = 'بلیط شما با موفقیت ثبت شد. این بلیط از ناحیه کاربری قابل مشاهده و دریافت است. کد رهگیری بلیط:  ' . $created_booking->id ;
+        return redirect()->back()->with('message', $message);
     }
 
     /**

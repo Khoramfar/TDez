@@ -11,12 +11,14 @@ use App\Models\Price;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Redirect;
 use Morilog\Jalali\Jalalian;
 class ShowController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('superadmin')->except(['show','index']);
     }
     /**
@@ -26,7 +28,8 @@ class ShowController extends Controller
      */
     public function index()
     {
-        $Shows = Show::all();
+        $id = Auth::id();
+        $Shows = Show::where('admin_id', '=', $id)->get();
         return view('show.index',['Shows' => $Shows]);
     }
 
@@ -109,7 +112,7 @@ class ShowController extends Controller
             foreach ($Cls->Seats->sortBy('row') as $Seat)
             {
                 for($i=1; $i<=$Seat->count;$i++)
-                    Ticket::Create(["name" =>$i ,"row"=>$Seat->row, 'cost'=> $price->cost, 'status'=>'free','show_id'=> $created_show->id ]);
+                    Ticket::Create(["name" =>$i ,"row"=>$Seat->row,"class_name"=>$Cls->name, 'cost'=> $price->cost, 'status'=>'free','show_id'=> $created_show->id ]);
             }
         }
         $message = 'اجرای جدید ثبت و بلیط ها با موفقیت صادر شد. هم اکنون می توانید وضعیت نمایش را عمومی کنید.';
@@ -127,7 +130,7 @@ class ShowController extends Controller
     {
         $show->load('tickets');
         $url = Storage::url('public/files/'.$show->theater->cover_file_name);
-        return view('show.show',['Show' => $show,'cover_url'=>$url]);
+        return view('show.show',['Show' => $show,'cover_url'=>$url])->render();
     }
 
     public function stats(Show $show)

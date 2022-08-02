@@ -1,59 +1,56 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.fullwidth')
+@section('title', 'ثبت نام')
+@section('insidebox')
+    <div class="container-fluid  mt-3 ">
+        <img class="mx-auto d-block" src="/img/signup.png" alt="Logo" style="width:200px;">
+            <!-- Validation Errors -->
+            <x-auth-validation-errors class="mb-4" :errors="$errors" />
+            <div class="col-lg-6 col-md-9 col-sm-12 mx-auto">
+                <form method="POST" action="{{ route('register') }}">
+                @csrf
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                <!-- Name -->
+                    <div class="form-floating mb-3 mt-3">
+                        <input  class="form-control" type="text" name="name" placeholder="Name"  required autofocus>
+                        <label for="name">  نام و نام خانوادگی:</label>
+                    </div>
+                    <!-- Phone -->
+                    <div class="form-floating mb-3 mt-3">
+                        <input  class="form-control" type="text" name="phone" placeholder="Phone"  required>
+                        <label for="phone">  شماره همراه:</label>
+                    </div>
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
+                    <!-- Email Address -->
+                    <div class="form-floating mb-3 mt-3">
+                        <input  class="form-control" type="email" name="email" placeholder="email"  required />
+                        <label for="name">  ایمیل:</label>
+                    </div>
 
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
+                        <!-- Password -->
+                        <div class="form-floating mb-3 mt-3">
+                            <input  class="form-control" type="password" name="password" placeholder="Enter New Password" required autocomplete="new-password" />
+                            <label for="new_password">  کلمه عبور :</label>
+                        </div>
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+
+                        <!-- Confirm Password -->
+                        <div class="form-floating mb-3 mt-3">
+                            <input id="password_confirmation"  class="form-control" type="password" name="password_confirmation" placeholder="Enter New Password" required />
+                            <label for="new_password">   تکرار کلمه عبور :</label>
+                        </div>
+
+
+
+                        <div class="flex items-center justify-end mt-4">
+                            <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                                قبلا ثبت نام کرده اید؟
+                            </a>
+
+                            <div class="mx-auto my-4"> <button type="submit" class="btn btn-lg btn-success mx-auto d-block"> ثبت نام </button></div>
+
+                        </div>
+                </form>
             </div>
+    </div>
+@endsection
 
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>

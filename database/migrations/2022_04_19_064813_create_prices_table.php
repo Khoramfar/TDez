@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('prices', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('theater_id');
-            $table->unsignedBigInteger('class_id'); 
+            $table->unsignedBigInteger('class_id');
             $table->unsignedBigInteger('cost');
             $table->timestamps();
 
-            $table->foreign('theater_id')->references('id')->on('theaters');
-            $table->foreign('class_id')->references('id')->on('classes');
-            
+            $table->foreign('theater_id')->references('id')->on('theaters')->onDelete('cascade');
+            $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
+
         });
     }
 

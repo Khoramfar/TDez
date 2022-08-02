@@ -102,6 +102,8 @@ class SeatController extends Controller
      */
     public function destroy(Seat $seat)
     {
-        //
+        $seat->delete();
+        $message = 'ردیف صندلی با موفقیت حذف شد.';
+        return redirect()->back()->with('message', $message);
     }
 }

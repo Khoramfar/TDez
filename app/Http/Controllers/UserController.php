@@ -64,7 +64,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
+            'phone' => ['required', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'max:12'],
         ]);
 
         Auth::user()->update(['name'=>$request->name,'phone'=>$request->phone]);

@@ -104,6 +104,8 @@ class ClassController extends Controller
      */
     public function destroy(Classe $classe)
     {
-        //
+        $classe->delete();
+        $message = 'کلاس با موفقیت حذف شد.';
+        return redirect()->back()->with('message', $message);
     }
 }

@@ -34,7 +34,7 @@
                 {{ session()->get('message') }}
             </div>
         @endif
-        <img class="mx-auto d-block" src="/img/userpanel.png" alt="Logo" style="width:200px;">
+        <img class="mx-auto d-block" src="/img/login.png" alt="Logo" style="width:200px;">
 
         <h3 class="btn btn-lg btn-dark"> تغییر مشخصات </h3>
         <form method="POST" action="{{ route('ChangeProfile') }}">

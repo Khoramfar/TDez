@@ -62,6 +62,7 @@ Route::post('/theaters/add',[TheaterController::class, 'store'])->name('AddTheat
 Route::post('/theaters/update/{theater}',[TheaterController::class, 'update'])->name('UpdateTheater');
 Route::post('/theaters/ispublic/{theater}',[TheaterController::class, 'is_public'])->name('PublicTheater');
 Route::get('/theaters/buy/{theater}',[TheaterController::class, 'show'])->name('TheaterBuy');
+Route::get('/search/', [TheaterController::class, 'search'])->name('TheaterSearch');
 
 // Salon
 Route::get('/salons',[SalonController::class, 'index'])->name('salonIndex');
@@ -69,15 +70,20 @@ Route::get('/salons/show/{salon}',[SalonController::class, 'show'])->name('ShowS
 Route::post('/salons/add',[SalonController::class, 'store'])->name('AddSalon');
 Route::get('/salons/edit/{salon}',[SalonController::class, 'edit'])->name('EditSalon');
 Route::post('/salons/update/{salon}',[SalonController::class, 'update'])->name('UpdateSalon');
+Route::get('/salons/delete/{salon}',[SalonController::class, 'destroy'])->name('DeleteSalon');
+
 
 //Classe
 Route::post('/salons/addclass',[ClassController::class, 'store'])->name('AddClassToSalon');
 Route::post('/salons/classes/update/{classe}',[ClassController::class, 'update'])->name('UpdateClass');
+Route::get('/salons/classes/delete/{classe}',[ClassController::class, 'destroy'])->name('DeleteClass');
 Route::get('/salons/{salon}/classes',[ClassController::class, 'index'])->name('ClassIndex');
 Route::get('/salons/classes/{classe}',[ClassController::class, 'show'])->name('ShowClass');
 
 //Seat
 Route::post('/salons/classes/addseat',[SeatController::class, 'store'])->name('AddSeatToClass');
+Route::get('/salons/classes/{seat}/delete',[SeatController::class, 'destroy'])->name('DeleteSeat');
+
 
 //Price
 Route::post('/theaters/price/add',[PriceController::class, 'store'])->name('AddPriceToTheater');

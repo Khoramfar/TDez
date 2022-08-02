@@ -107,11 +107,10 @@ class SalonController extends Controller
      */
     public function destroy(Salon $salon)
     {
-        //
+        $salon->delete();
+        $message = 'سالن با موفقیت حذف شد.';
+        return redirect()->back()->with('message', $message);
     }
 
-    public function addclass(Request $request)
-    {
 
-    }
 }

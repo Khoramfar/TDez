@@ -28,11 +28,12 @@
         <input  class="form-control" type="text" name="name" placeholder="Enter title" value="{{$class->name}}" required>
         <label for="title"> نام بخش:</label>
     </div>
-    <div class="mx-auto my-4"> <button type="submit" class="btn btn-success"> بروزرسانی کلاس </button>
-        <button class="btn btn-danger"> حذف کلاس </button>
-    </div>
+    <div class="mx-auto my-4"> <button type="submit" class="btn btn-success"> بروزرسانی کلاس </button></div>
+    </form>
+        <a href="{{ route('DeleteClass',[$class]) }}" onclick="return confirm('آیا از حذف کلاس اطمینان دارید؟')">  <button class="btn btn-danger"> حذف کلاس </button> </a>
 
-</form>
+
+
 
 
 <div class="modal-title d-block mx-auto">
@@ -67,7 +68,7 @@
             <td> {{$seat->row}}</td>
             <td> {{$seat->count}}</td>
             <td>
-                <button type="button" class="btn btn-danger"><span class="fas fa-remove"></span></button>
+                <a href="{{ route('DeleteSeat',[$seat]) }}" onclick="return confirm('آیا از حذف ردیف اطمینان دارید؟')">  <button type="button" class="btn btn-danger"><span class="fas fa-remove"></span></button> </a>
             </td>
         </tr>
     @endforeach

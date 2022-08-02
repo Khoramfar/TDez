@@ -34,7 +34,7 @@
                 {{ session()->get('message') }}
             </div>
         @endif
-        <img class="mx-auto d-block" src="/img/userpanel.png" alt="Logo" style="width:200px;">
+        <img class="mx-auto d-block" src="/img/Tickets.png" alt="Logo" style="width:200px;">
 
         <table class="table table-light table-striped">
             <thead>

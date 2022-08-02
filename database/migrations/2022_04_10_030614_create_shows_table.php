@@ -27,7 +27,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('theater_id')->references('id')->on('theaters');
-            $table->foreign('salon_id')->references('id')->on('salons');
+            $table->foreign('salon_id')->references('id')->on('salons')->onDelete('set null');
             $table->foreign('admin_id')->references('id')->on('users');
 
         });

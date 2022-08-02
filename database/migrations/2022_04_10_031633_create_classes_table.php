@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('salon_id');
-            
+
 
             $table->timestamps();
-            $table->foreign('salon_id')->references('id')->on('salons');
+            $table->foreign('salon_id')->references('id')->on('salons')->onDelete('cascade');
         });
     }
 

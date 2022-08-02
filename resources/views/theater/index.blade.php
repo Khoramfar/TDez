@@ -38,7 +38,7 @@
                 {{ session()->get('message') }}
             </div>
         @endif
-        <img class="mx-auto d-block" src="/img/userpanel.png" alt="Logo" style="width:200px;">
+        <img class="mx-auto d-block" src="/img/theater.png" alt="Logo" style="width:200px;">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">

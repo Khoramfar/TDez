@@ -60,9 +60,9 @@
                 </li>
             </ul>
         </div>
-        <form class="d-flex">
-            <input class="form-control me-2" type="text" placeholder="جستجوی رویداد">
-            <button class="btn btn-secondary" type="button">برو</button>
-        </form>
+            <form name="frm1" class="d-flex" action="{{ route('TheaterSearch') }}" method="GET">
+            <input class="form-control me-2" type="text" name="search" placeholder="جستجوی رویداد" required/>
+            <button form="form1" class="btn btn-secondary" type="submit">برو</button>
+            </form>
     </div>
 </nav>

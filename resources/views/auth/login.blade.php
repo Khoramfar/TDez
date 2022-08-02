@@ -1,10 +1,9 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.fullwidth')
+@section('title', 'ورود به حساب کاربری')
+@section('insidebox')
+    <div class="container  mt-3 ">
+        <img class="mx-auto d-block" src="/img/login.png" alt="Logo" style="width:200px;">
+
 
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -12,25 +11,24 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
+        <div class="col-lg-6 col-md-9 col-sm-12 mx-auto">
+
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
             <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
+                <div class="form-floating mb-3 mt-3">
+                    <input  class="form-control" type="email" name="email" placeholder="email"  required />
+                    <label for="name">  ایمیل:</label>
+                </div>
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            </div>
 
             <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+                <div class="form-floating mb-3 mt-3">
+                    <input  class="form-control" type="password" name="password" placeholder="Enter New Password" required autocomplete="new-password" required autocomplete="current-password" />
+                    <label for="new_password">  کلمه عبور :</label>
+                </div>
 
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
-            </div>
 
             <!-- Remember Me -->
             <div class="block mt-4">
@@ -47,10 +45,10 @@
                     </a>
                 @endif
 
-                <x-button class="ml-3">
-                    {{ __('Log in') }}
-                </x-button>
+                    <div class="mx-auto my-4"> <button type="submit" class="btn btn-lg btn-success mx-auto d-block"> ورود </button></div>
+
             </div>
         </form>
-    </x-auth-card>
-</x-guest-layout>
+        </div>
+
+@endsection

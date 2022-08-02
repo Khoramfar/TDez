@@ -26,7 +26,7 @@
                 {{ session()->get('message') }}
             </div>
         @endif
-        <img class="mx-auto d-block" src="/img/userpanel.png" alt="Logo" style="width:200px;">
+        <img class="mx-auto d-block" src="/img/Salon.png" alt="Logo" style="width:200px;">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
@@ -61,7 +61,7 @@
                                 <button type="button" onclick="editsalon({{$S->id}})" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edittheater" > جزئیات</button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-danger"><span class="fas fa-remove"></span></button>
+                                <a href="{{ route('DeleteSalon',[$S]) }}" onclick="return confirm('آیا از حذف سالن اطمینان دارید؟')">  <button type="button" class="btn btn-danger"><span class="fas fa-remove"></span></button> </a>
                             </td>
                         </tr>
                     @endforeach

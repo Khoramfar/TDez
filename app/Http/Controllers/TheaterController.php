@@ -15,8 +15,8 @@ class TheaterController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('superadmin')->except(['show']);
+        $this->middleware('auth')->except(['search']);
+        $this->middleware('superadmin')->except(['show', 'search']);
 
     }
     /**
@@ -29,6 +29,15 @@ class TheaterController extends Controller
         $Ths = Theater::all();
         $Shows = Show::all();
         return view('theater.index',['Ths' => $Ths, 'Shows' => $Shows]);
+    }
+    public function search(Request $request){
+
+        $search = $request->input('search');
+        $theaters = Theater::query()
+            ->where('title', 'LIKE', "%{$search}%")
+            ->orWhere('description', 'LIKE', "%{$search}%")
+            ->get();
+        return view('search', compact('theaters'));
     }
 
     /**

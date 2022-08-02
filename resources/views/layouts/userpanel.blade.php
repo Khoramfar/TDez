@@ -24,13 +24,15 @@
 
                 <hr class=" mx-auto" style="width: 60px; background-color: #212529; height: 2px">
                 @if((auth()->user()->role_id == '1') )
-                <a href="{{route('theaterIndex')}}" >  <button class="btn btn-outline-dark my-1 w-100"><span class="fas fa-link"></span> مدیریت رویدادها </button>  </a>
+                    <a href="{{route('UserManage')}}" >  <button class="btn btn-outline-dark my-1 w-100"><span class="fas fa-link"></span> مدیریت کاربران </button>  </a>
+                    <a href="{{route('theaterIndex')}}" >  <button class="btn btn-outline-dark my-1 w-100"><span class="fas fa-link"></span> مدیریت رویدادها </button>  </a>
                 <a href="{{route('salonIndex')}}" >  <button class="btn btn-outline-dark my-1 w-100"><span class="fas fa-link"></span> مدیریت سالن ها </button>  </a>
                 @endif
                 @if((auth()->user()->role_id == '1') || auth()->user()->role_id == '2')
                     <a href="{{route('MyShowsIndex')}}" >  <button class="btn btn-outline-dark my-1 w-100"><span class="fas fa-link"></span> اجراهای من </button>  </a>
                 @endif
                 <a href="{{route('BookingIndex')}}" >  <button class="btn btn-outline-dark my-1 w-100"><span class="fas fa-link"></span> بلیط‌های من </button>  </a>
+                <a href="{{route('UserProfile')}}" >  <button class="btn btn-outline-dark my-1 w-100"><span class="fas fa-link"></span> تغییر مشخصات  </button>  </a>
 
                 <h3 class="h4 text-center my-3"><span class="fas fa-user mx-2 h5"></span>  مشخصات کاربری</h3>
                 <hr class=" mx-auto" style="width: 60px; background-color: #212529; height: 2px">
@@ -44,19 +46,7 @@
                     <span class="text-dark">
                     @php
                         if (Auth::check()){
-                            if(auth()->user()->role_id == '1')
-                             {
-                                 $role = 'مدیر کل سایت';
-                             }
-                             elseif(auth()->user()->role_id == '2')
-                             {
-                                 $role = 'مدیر نمایش';
-                             }
-                             elseif(auth()->user()->role_id == '3')
-                             {
-                                 $role = 'کاربر عادی';
-                             }
-                             echo  $role;
+                             echo auth()->user()->role->tag;
                             }
                     @endphp
                     </span>

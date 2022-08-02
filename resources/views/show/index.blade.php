@@ -61,7 +61,7 @@
                         @endphp
                     </td>
                     <td>
-                        <button type="button" onclick="showstats({{$S->id}})" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#showstats" > جزئیات و آمار</button>
+                        <button type="button" onclick="showstats({{$S->id}})" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showstats" > جزئیات و آمار</button>
                     </td>
                 </tr>
             @endforeach
@@ -71,7 +71,7 @@
 
         <!-- Show Stats Modal -->
         <div class="modal fade" id="showstats">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
 
                     <!-- Modal Header -->
@@ -97,7 +97,7 @@
 
         <script>
             function showstats(id) {
-                $.get("/salons/show/" + id, function(data, status){
+                $.get("/shows/" + id + "/stats", function(data, status){
                     document.getElementById("showstatsbody").innerHTML = data;
                 });
             }

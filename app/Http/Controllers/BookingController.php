@@ -52,6 +52,10 @@ class BookingController extends Controller
         {
             return Redirect::back()->withErrors(['اجرای مورد نظر یافت نشد']);
         }
+        if ($show->public == '0')
+        {
+            return Redirect::back()->withErrors(['اجرای مورد نظر غیرفعال است']);
+        }
         $id = Auth::id();
         $currentTime = Carbon::now();
         foreach ($request->tickets as $ticketid)
@@ -85,7 +89,11 @@ class BookingController extends Controller
     public function show(Booking $booking)
     {
         $booking->load('tickets');
-        return view('booking.show',['Booking' => $booking]);
+        $show = $booking->show;
+        $theater = $show->theater;
+        $customer = $booking->customer;
+        $url = Storage::url('public/files/'.$theater->cover_file_name);
+        return view('booking.show',['Booking' => $booking,'Theater' => $theater,'Customer' => $customer,'Show' => $show,'cover_url'=>$url]);
     }
 
     /**

@@ -9,6 +9,7 @@ use App\Http\Controllers\PriceController;
 use App\Http\Controllers\ShowController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\MainController;
 
 /*
@@ -47,14 +48,19 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-// Theater
+// User
+Route::get('/profile',[UserController::class, 'profile'])->name('UserProfile');
+Route::get('/users',[UserController::class, 'index'])->name('UserManage');
+Route::post('/change-password', [UserController::class, 'passwordchange'])->name('ChangePassword');
+Route::post('/change-profile', [UserController::class, 'profilechange'])->name('ChangeProfile');
+Route::get('/users/{user}',[UserController::class, 'show'])->name('ShowUser');
 
+// Theater
 Route::get('/theaters',[TheaterController::class, 'index'])->name('theaterIndex');
 Route::get('/theaters/{theater}',[TheaterController::class, 'manage'])->name('ShowTheater');
 Route::post('/theaters/add',[TheaterController::class, 'store'])->name('AddTheater');
 Route::post('/theaters/update/{theater}',[TheaterController::class, 'update'])->name('UpdateTheater');
 Route::post('/theaters/ispublic/{theater}',[TheaterController::class, 'is_public'])->name('PublicTheater');
-
 Route::get('/theaters/buy/{theater}',[TheaterController::class, 'show'])->name('TheaterBuy');
 
 // Salon
@@ -84,15 +90,12 @@ Route::get('/theaters/{theater}/shows',[ShowController::class, 'showmanage'])->n
 Route::post('/shows/ispublic/{show}',[ShowController::class, 'is_public'])->name('PublicShow');
 Route::post('/shows/add',[ShowController::class, 'store'])->name('AddShowToTheater');
 Route::get('/shows/{show}',[ShowController::class, 'show'])->name('ShowShow');
-
 Route::get('/shows',[ShowController::class, 'index'])->name('MyShowsIndex');
 Route::get('/shows/{show}/stats',[ShowController::class, 'stats'])->name('ShowStats');
 
 //Booking
-Route::post('/Booking/add',[BookingController::class, 'store'])->name('AddBooking');
-Route::get('/Bookings',[BookingController::class, 'index'])->name('BookingIndex');
-Route::get('/Bookings/{booking}',[BookingController::class, 'show'])->name('ShowBooking');
+Route::post('/booking/add',[BookingController::class, 'store'])->name('AddBooking');
+Route::get('/bookings',[BookingController::class, 'index'])->name('BookingIndex');
+Route::get('/bookings/{booking}',[BookingController::class, 'show'])->name('ShowBooking');
 
-//Ticket
-Route::get('/Tickets/{booking}',[TicketController::class, 'show'])->name('ShowTickets');
 

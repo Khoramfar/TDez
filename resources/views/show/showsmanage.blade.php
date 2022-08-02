@@ -82,7 +82,7 @@
                         @endphp
                     </td>
                     <td>
-                        <button type="button" type="submit" class="btn btn-dark"  > جزئیات </button>
+                        <button type="button" onclick="showstats({{$S->id}})" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showstats" > جزئیات و آمار</button>
                     </td>
                     <td>
                         <form action="{{route('PublicShow',[$S->id])}}" method="post">

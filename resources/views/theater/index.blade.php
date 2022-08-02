@@ -121,7 +121,7 @@
                                 @endphp
                             </td>
                             <td>
-                                <button type="button" type="submit" class="btn btn-dark"  > جزئیات </button>
+                                <button type="button" onclick="showstats({{$S->id}})" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showstats" > جزئیات و آمار</button>
                             </td>
                             <td>
                                 <form action="{{route('PublicShow',[$S->id])}}" method="post">
@@ -234,6 +234,32 @@
         </div>
     </div>
 
+    <!-- Show Stats Modal -->
+    <div class="modal fade" id="showstats">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <h4 class="modal-title">آمار فروش</h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body" id="showstatsbody">
+                    <div class="spinner-border"></div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">خروج</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
 
 
     <script>
@@ -257,6 +283,13 @@
                 document.getElementById("showslistbody").innerHTML = data;
             });
         }
+
+        function showstats(id) {
+            $.get("/shows/" + id + "/stats", function(data, status){
+                document.getElementById("showstatsbody").innerHTML = data;
+            });
+        }
+
         $(document).ready(function () {
             $('#showslist').on('shown.bs.modal', function (e) {
                 $('.observer-example').persianDatepicker({

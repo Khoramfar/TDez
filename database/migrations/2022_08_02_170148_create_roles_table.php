@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('bookings', function (Blueprint $table) {
-            $table->unsignedBigInteger('show_id')->after('customer_id');
-            $table->foreign('show_id')->references('id')->on('shows');
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            $table->string('tag');
+            $table->timestamps();
         });
     }
 
@@ -26,9 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('bookings', function (Blueprint $table) {
-            $table->dropColumn('show_id');
-
-        });
+        Schema::dropIfExists('roles');
     }
 };

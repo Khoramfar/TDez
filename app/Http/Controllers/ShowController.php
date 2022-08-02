@@ -9,6 +9,7 @@ use App\Models\Theater;
 use App\Models\User;
 use App\Models\Price;
 use App\Models\Ticket;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,7 @@ class ShowController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('superadmin')->except(['show','index']);
+        $this->middleware('superadmin')->except(['show','index','stats']);
     }
     /**
      * Display a listing of the resource.
@@ -136,8 +137,10 @@ class ShowController extends Controller
     public function stats(Show $show)
     {
         $show->load('tickets');
-        $url = Storage::url('public/files/'.$show->theater->cover_file_name);
-        return view('show.show',['Show' => $show,'cover_url'=>$url]);
+        $taken_count = $show->tickets->where('status', '=', 'taken')->count();
+        $free_count = $show->tickets->where('status', '=', 'free')->count();
+        $bookings =  Booking::where('show_id', '=', $show->id)->get();
+        return view('show.stats',['Show' => $show,'taken_count' => $taken_count , 'free_count' => $free_count, 'Bookings' => $bookings])->render();
     }
 
     /**

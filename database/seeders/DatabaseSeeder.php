@@ -14,6 +14,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        \App\Models\Role::create(["id"=>"1","tag"=> "مدیر کل سایت"]);
+        \App\Models\Role::create(["id"=>"2","tag"=> "مدیر نمایش"]);
+        \App\Models\Role::create(["id"=>"3","tag"=> "کاربر عادی"]);
         // \App\Models\User::factory(10)->create();
     }
 }

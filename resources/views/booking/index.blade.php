@@ -63,7 +63,7 @@
                         {{PersianNumbersToEnglish($B->tickets->count())}}
                     </td>
                     <td>
-                        <button type="button" onclick="classmanage({{$B->id}})" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#showbooking" > مشاهده بلیط</button>
+                         <a href="{{route('ShowBooking',[$B->id])}}" target="_blank"> <button type="button" class="btn btn-danger" > مشاهده بلیط</button></a>
                     </td>
                 </tr>
             @endforeach
@@ -71,38 +71,5 @@
             </tbody>
         </table>
 
-    <!-- Show Booking Modal -->
-    <div class="modal fade" id="showbooking">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    <h4 class="modal-title">مشاهده بلیط</h4>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body" id="showbookingbody">
-                    <div class="spinner-border"></div>
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">خروج</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-    <script>
-        function showbooking(id) {
-            $.get("/salons/show/" + id, function(data, status){
-                document.getElementById("showbookingbody").innerHTML = data;
-            });
-        }
-    </script>
 
 @endsection

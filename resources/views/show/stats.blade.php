@@ -17,6 +17,11 @@
         echo PersianNumbersToEnglish(\Morilog\Jalali\CalendarUtils::strftime('%A, %d %B %Y', strtotime($Show->show_date)));
     @endphp
 </div>
+<div class="usertypebox py-2">
+    مدیر فروش:
+    {{$Show->admin->name}}
+</div>
+
 
 <div class="usertypebox py-2 text-success">
     تعداد صندلی فروخته شده:

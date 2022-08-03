@@ -11,6 +11,7 @@ use App\Models\Price;
 use App\Models\Ticket;
 use App\Models\Booking;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Redirect;
@@ -135,7 +136,9 @@ class ShowController extends Controller
     }
 
     public function stats(Show $show)
-    {
+    {		if (! Gate::allows('show_stat', $show)) {
+        abort(403);
+    }
         $show->load('tickets');
         $taken_count = $show->tickets->where('status', '=', 'taken')->count();
         $free_count = $show->tickets->where('status', '=', 'free')->count();

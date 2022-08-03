@@ -8,6 +8,7 @@ use App\Models\Show;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Redirect;
 class BookingController extends Controller
@@ -88,8 +89,11 @@ class BookingController extends Controller
      */
     public function show(Booking $booking)
     {
-        $booking->load('tickets');
         $show = $booking->show;
+        if (! Gate::allows('show_ticket',$booking)) {
+            abort(403);
+        }
+        $booking->load('tickets');
         $theater = $show->theater;
         $customer = $booking->customer;
         $url = Storage::url('public/files/'.$theater->cover_file_name);
